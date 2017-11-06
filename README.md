@@ -1,6 +1,7 @@
 项目目前里面提交的是redis和springboot项目的初步配置和简单实用，后续会增加spring cache的讲解
 
 以下记录的是项目中未讲解的部分内容：
+
 1、Redis 可以存储键与5种不同数据结构类型之间的映射，这5种数据结构类型分别为String（字符串）、List（列表）、Set（集合）、Hash（散列）和 Zset（有序集合）
 RedisTemplate中定义了对五种数据结构操作：
   redisTemplate.opsForValue();//操作字符串

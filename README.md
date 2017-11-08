@@ -1,13 +1,13 @@
-项目目前里面提交的是redis和springboot项目的初步配置和简单实用，后续会增加spring cache的讲解
+\<br>项目目前里面提交的是redis和springboot项目的初步配置和简单实用，后续会增加spring cache的讲解
 
 以下记录的是项目中未讲解的部分内容：
 
 1、Redis 可以存储键与5种不同数据结构类型之间的映射，这5种数据结构类型分别为String（字符串）、List（列表）、Set（集合）、Hash（散列）和 Zset（有序集合）RedisTemplate中定义了对五种数据结构操作：
-  redisTemplate.opsForValue();//操作字符串
-  redisTemplate.opsForHash();//操作hash
-  redisTemplate.opsForList();//操作list
-  redisTemplate.opsForSet();//操作set
-  redisTemplate.opsForZSet();//操作有序set
+  redisTemplate.opsForValue();//操作字符串\<br>
+  redisTemplate.opsForHash();//操作hash\<br>
+  redisTemplate.opsForList();//操作list\<br>
+  redisTemplate.opsForSet();//操作set\<br>
+  redisTemplate.opsForZSet();//操作有序set\<br>
 
 2、Redis持久化（此处借鉴了别人整理的很赞）
 提供了多种不同级别的持久化方式:一种是RDB,另一种是AOF.
@@ -18,7 +18,7 @@ AOF 持久化记录服务器执行的所有写操作命令，并在服务器启�
 RDB 快照:
 在默认情况下， Redis 将数据库快照保存在名字为 dump.rdb 的二进制文件中。你可以对 Redis 进行设置， 让它在“ N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。你也可以通过调用 SAVE 或者 BGSAVE ， 手动让 Redis 进行数据集保存操作。比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：
 save 60 1000
-这种持久化方式被称为快照（snapshot）。
+\<br>这种持久化方式被称为快照（snapshot）。
 
 
 AOF 重写:
@@ -39,40 +39,40 @@ AOF 的缺点:
 
 3、spring boot 配置logback
 
-spring boot在所有内部日志中使用Commons Logging，但是默认配置也提供了对常用日志的支持，如：Java Util Logging，Log4J，Log4J2 和Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。
+spring boot在所有内部日志中使用Commons Logging，但是默认配置也提供了对常用日志的支持，如：Java Util Logging，Log4J，Log4J2 和Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。\<br>
 
-Logback 是log4J框架的作者开发的新一代日志框架，它效率更高、能够适应诸多的运行环境，同时天然支持SLF4J。
-默认情况下，Spring boot会用Logback来记录日志，并用INFO级别输出到控制台。在运行应用程序和其他例子是，你应该已经看到很多INFO级别的日志了。
+Logback 是log4J框架的作者开发的新一代日志框架，它效率更高、能够适应诸多的运行环境，同时天然支持SLF4J。\<br>
+默认情况下，Spring boot会用Logback来记录日志，并用INFO级别输出到控制台。在运行应用程序和其他例子是，你应该已经看到很多INFO级别的日志了。\<br>
 
 (1)、日志级别：trace < debug < info < warn < error < fatal，如果低于warn的信息都不会输出
-spring boot中默认配置 error 、 warn 和 info 级别的日志输出到控制台。
+spring boot中默认配置 error 、 warn 和 info 级别的日志输出到控制台。\<br>
 
-(2)、基于applciation.properties的日志配置
+(2)、基于applciation.properties的日志配置\<br>
 
 spring boot默认配置指挥输出到控制台，并不会记录到文件中，但是我们通常生产环境使用时都需要以文件方式记录
-若要增加文件输出，需要在application.properties中配置logging.file或logging.path属性。
-logging.file 设置文件，可以是绝对路径，也可以是相对路径。
-如：logging.file=my.log
-logging.path 设置目录，会在改目录下创建spring.log文件，并写入日志内容
-如：logging.path=/usr/local/var
-注意：二者不能同时使用，如若同时使用，则只有logging.file生效
-在spring boot 中只需要在application.properties 中进行配置完成日志记录的级别控制
-配置格式：logging.level.*=level
+若要增加文件输出，需要在application.properties中配置logging.file或logging.path属性。\<br>
+logging.file 设置文件，可以是绝对路径，也可以是相对路径。\<br>
+如：logging.file=my.log\<br>
+logging.path 设置目录，会在改目录下创建spring.log文件，并写入日志内容\<br>
+如：logging.path=/usr/local/var\<br>
+注意：二者不能同时使用，如若同时使用，则只有logging.file生效\<br>
+在spring boot 中只需要在application.properties 中进行配置完成日志记录的级别控制\<br>
+配置格式：logging.level.*=level\<br>
 logging.level: 日志级别控制前缀，*为包名或Logger名
-level：选项trace,debug,info,warn,error,fatal,off
+level：选项trace,debug,info,warn,error,fatal,off\<br>
 例如：
-logging.level.com.exmple=debug : con.exmple包下所有class以debug级别输出
-logging.level.root=warn ： root日志以warn级别输出
-如果你既想完全掌握日志配置，但又不想用logback作为logback配置的名字，可以通过logging.config属性指定自定义的名字：
-logging.config 属性制定自定义的名字。
-logging.config=classpath:logging-logback.xml
+logging.level.com.exmple=debug : con.exmple包下所有class以debug级别输出\<br>
+logging.level.root=warn ： root日志以warn级别输出\<br>
+如果你既想完全掌握日志配置，但又不想用logback作为logback配置的名字，可以通过logging.config属性指定自定义的名字：\<br>
+logging.config 属性制定自定义的名字。\<br>
+logging.config=classpath:logging-logback.xml\<br>
 
-(3)、自定义日志配置
+(3)、自定义日志配置\<br>
 
 由于日志服务一般都在ApplicationContext创建前就初始化了，它并不是必须通过Spring的配置文件控制。因此通过系统属性和传统的springboot外部配置文件依然可以很好的支持日志控制和管理。
-根据不同的日志系统，你可以按如下规则组织配置文件名，就能被正确加载：
-logback:logback-spring.xml,log-spring.groovy,logback.xml,logback.groovy
-log4j:log4j-spring.properties,log4j-spring.xml,log4j.properties,log4j.xml
-log4j2:log4j2-spring.xml,log4j2.xml
-JDK(Java Util Logging): logging.properties
-spring boot官方推荐优先使用带有 -spring的文件名作为你的日志配置
+根据不同的日志系统，你可以按如下规则组织配置文件名，就能被正确加载：\<br>
+logback:logback-spring.xml,log-spring.groovy,logback.xml,logback.groovy\<br>
+log4j:log4j-spring.properties,log4j-spring.xml,log4j.properties,log4j.xml\<br>
+log4j2:log4j2-spring.xml,log4j2.xml\<br>
+JDK(Java Util Logging): logging.properties\<br>
+spring boot官方推荐优先使用带有 -spring的文件名作为你的日志配置\<br>

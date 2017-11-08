@@ -2,8 +2,7 @@
 
 以下记录的是项目中未讲解的部分内容：
 
-1、Redis 可以存储键与5种不同数据结构类型之间的映射，这5种数据结构类型分别为String（字符串）、List（列表）、Set（集合）、Hash（散列）和 Zset（有序集合）
-RedisTemplate中定义了对五种数据结构操作：
+1、Redis 可以存储键与5种不同数据结构类型之间的映射，这5种数据结构类型分别为String（字符串）、List（列表）、Set（集合）、Hash（散列）和 Zset（有序集合）RedisTemplate中定义了对五种数据结构操作：
   redisTemplate.opsForValue();//操作字符串
   redisTemplate.opsForHash();//操作hash
   redisTemplate.opsForList();//操作list
@@ -14,7 +13,6 @@ RedisTemplate中定义了对五种数据结构操作：
 提供了多种不同级别的持久化方式:一种是RDB,另一种是AOF.
 RDB 持久化可以在指定的时间间隔内生成数据集的时间点快照（point-in-time snapshot）。
 AOF 持久化记录服务器执行的所有写操作命令，并在服务器启动时，通过重新执行这些命令来还原数据集。 AOF 文件中的命令全部以 Redis 协议的格式来保存，新命令会被追加到文件的末尾。 Redis 还可以在后台对 AOF 文件进行重写（rewrite），使得 AOF 文件的体积不会超出保存数据集状态所需的实际大小。Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， 因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。你甚至可以关闭持久化功能，让数据只在服务器运行时存在。
-
 了解 RDB 持久化和 AOF 持久化之间的异同是非常重要的， 以下几个小节将详细地介绍这这两种持久化功能， 并对它们的相同和不同之处进行说明。
 
 RDB 快照:
@@ -22,8 +20,9 @@ RDB 快照:
 save 60 1000
 这种持久化方式被称为快照（snapshot）。
 
+
 AOF 重写:
-因为 AOF 的运作方式是不断地将命令追加到文件的末尾， 所以随着写入命令的不断增加， AOF 文件的体积也会变得越来越大。举个例子， 如果你对一个计数器调用了 100 次 INCR ， 那么仅仅是为了保存这个计数器的当前值， AOF 文件就需要使用 100 条记录（entry）。然而在实际上， 只使用一条 SET 命令已经足以保存计数器的当前值了， 其余 99 条记录实际上都是多余的。为了处理这种情况， Redis 支持一种有趣的特性： 可以在不打断服务客户端的情况下， 对 AOF 文件进行重建（rebuild）。执行 BGREWRITEAOF 命令， Redis 将生成一个新的 AOF 文件， 这个文件包含重建当前数据集所需的最少命令。
+因为 AOF 的运作方式是不断地将命令追加到文件的末尾， 所以随着写入命令的不断增加， AOF 文件的体积也会变得越来越大。举个例子， 如果你对一个计数器调用了100 次 INCR ， 那么仅仅是为了保存这个计数器的当前值， AOF 文件就需要使用 100 条记录（entry）。然而在实际上， 只使用一条 SET 命令已经足以保存计数器的当前值了， 其余 99 条记录实际上都是多余的。为了处理这种情况， Redis 支持一种有趣的特性： 可以在不打断服务客户端的情况下， 对 AOF 文件进行重建（rebuild）。执行 BGREWRITEAOF 命令， Redis 将生成一个新的 AOF 文件， 这个文件包含重建当前数据集所需的最少命令。
 
 RDB 的优点:
 RDB 是一个非常紧凑（compact）的文件，它保存了 Redis 在某个时间点上的数据集。 这种文件非常适合用于进行备份： 比如说，你可以在最近的 24 小时内，每小时备份一次 RDB 文件，并且在每个月的每一天，也备份一个 RDB 文件。 这样的话，即使遇上问题，也可以随时将数据集还原到不同的版本。RDB 非常适用于灾难恢复（disaster recovery）：它只有一个文件，并且内容都非常紧凑，可以（在加密后）将它传送到别的数据中心，或者亚马逊 S3 中。RDB 可以最大化 Redis 的性能：父进程在保存 RDB 文件时唯一要做的就是 fork 出一个子进程，然后这个子进程就会处理接下来的所有保存工作，父进程无须执行任何磁盘 I/O 操作。RDB 在恢复大数据集时的速度比 AOF 的恢复速度要快。
@@ -61,6 +60,15 @@ level：选项trace,debug,info,warn,error,fatal,off
 例如：
 logging.level.com.exmple=debug : con.exmple包下所有class以debug级别输出
 logging.level.root=warn ： root日志以warn级别输出
+如果你既想完全掌握日志配置，但又不想用logback作为logback配置的名字，可以通过logging.config属性指定自定义的名字：
+logging.config 属性制定自定义的名字。
+logging.config=classpath:logging-logback.xml
 
 (3)、自定义日志配置
-
+由于日志服务一般都在ApplicationContext创建前就初始化了，它并不是必须通过Spring的配置文件控制。因此通过系统属性和传统的springboot外部配置文件依然可以很好的支持日志控制和管理。
+根据不同的日志系统，你可以按如下规则组织配置文件名，就能被正确加载：
+logback:logback-spring.xml,log-spring.groovy,logback.xml,logback.groovy
+log4j:log4j-spring.properties,log4j-spring.xml,log4j.properties,log4j.xml
+log4j2:log4j2-spring.xml,log4j2.xml
+JDK(Java Util Logging): logging.properties
+spring boot官方推荐优先使用带有 -spring的文件名作为你的日志配置

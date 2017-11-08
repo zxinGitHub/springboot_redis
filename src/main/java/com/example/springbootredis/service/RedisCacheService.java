@@ -10,4 +10,6 @@ public interface RedisCacheService {
     void saveUserInfo(UserInfo userInfo);
 
     UserInfo getUserInfo(Integer id);
+
+    void updateUserInfo(Integer id, String address);
 }

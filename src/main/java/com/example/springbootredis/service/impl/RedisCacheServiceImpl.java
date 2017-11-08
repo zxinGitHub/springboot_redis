@@ -37,4 +37,9 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         logger.info("开始获取用户信息啦。。。。");
         return userInfo;
     }
+
+    @Override
+    public void updateUserInfo(Integer id, String address) {
+
+    }
 }

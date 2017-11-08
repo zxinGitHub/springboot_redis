@@ -18,9 +18,10 @@ AOF 持久化记录服务器执行的所有写操作命令，并在服务器启�
 RDB 快照:
 在默认情况下， Redis 将数据库快照保存在名字为 dump.rdb 的二进制文件中。你可以对 Redis 进行设置， 让它在“ N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。你也可以通过调用 SAVE 或者 BGSAVE ， 手动让 Redis 进行数据集保存操作。比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：
 save 60 1000
-\<br>这种持久化方式被称为快照（snapshot）。
+<br>这种持久化方式被称为快照（snapshot）。
 
 AOF 重写:
+
 因为 AOF 的运作方式是不断地将命令追加到文件的末尾， 所以随着写入命令的不断增加， AOF 文件的体积也会变得越来越大。举个例子， 如果你对一个计数器调用了100 次 INCR ， 那么仅仅是为了保存这个计数器的当前值， AOF 文件就需要使用 100 条记录（entry）。然而在实际上， 只使用一条 SET 命令已经足以保存计数器的当前值了， 其余 99 条记录实际上都是多余的。为了处理这种情况， Redis 支持一种有趣的特性： 可以在不打断服务客户端的情况下， 对 AOF 文件进行重建（rebuild）。执行 BGREWRITEAOF 命令， Redis 将生成一个新的 AOF 文件， 这个文件包含重建当前数据集所需的最少命令。
 
 RDB 的优点:
@@ -73,3 +74,5 @@ log4j:log4j-spring.properties,log4j-spring.xml,log4j.properties,log4j.xml<br>
 log4j2:log4j2-spring.xml,log4j2.xml<br>
 JDK(Java Util Logging): logging.properties<br>
 spring boot官方推荐优先使用带有 -spring的文件名作为你的日志配置<br>
+ 
+ 4、spring

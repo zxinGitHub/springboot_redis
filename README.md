@@ -1,13 +1,13 @@
-\<br>项目目前里面提交的是redis和springboot项目的初步配置和简单实用，后续会增加spring cache的讲解
+项目目前里面提交的是redis和springboot项目的初步配置和简单实用，后续会增加spring cache的讲解
 
 以下记录的是项目中未讲解的部分内容：
 
-1、Redis 可以存储键与5种不同数据结构类型之间的映射，这5种数据结构类型分别为String（字符串）、List（列表）、Set（集合）、Hash（散列）和 Zset（有序集合）RedisTemplate中定义了对五种数据结构操作：
-  redisTemplate.opsForValue();//操作字符串\<br>
-  redisTemplate.opsForHash();//操作hash\<br>
-  redisTemplate.opsForList();//操作list\<br>
-  redisTemplate.opsForSet();//操作set\<br>
-  redisTemplate.opsForZSet();//操作有序set\<br>
+1、Redis 可以存储键与5种不同数据结构类型之间的映射，这5种数据结构类型分别为String（字符串）、List（列表）、Set（集合）、Hash（散列）和 Zset（有序集合）RedisTemplate中定义了对五种数据结构操作：<br>
+  redisTemplate.opsForValue();//操作字符串<br>
+  redisTemplate.opsForHash();//操作hash<br>
+  redisTemplate.opsForList();//操作list<br>
+  redisTemplate.opsForSet();//操作set<br>
+  redisTemplate.opsForZSet();//操作有序set<br>
 
 2、Redis持久化（此处借鉴了别人整理的很赞）
 提供了多种不同级别的持久化方式:一种是RDB,另一种是AOF.

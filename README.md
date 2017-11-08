@@ -56,4 +56,11 @@ logging.path 设置目录，会在改目录下创建spring.log文件，并写入
 注意：二者不能同时使用，如若同时使用，则只有logging.file生效
 在spring boot 中只需要在application.properties 中进行配置完成日志记录的级别控制
 配置格式：logging.level.*=level
-logging.level: 日志级别控制前缀，*
+logging.level: 日志级别控制前缀，*为包名或Logger名
+level：选项trace,debug,info,warn,error,fatal,off
+例如：
+logging.level.com.exmple=debug : con.exmple包下所有class以debug级别输出
+logging.level.root=warn ： root日志以warn级别输出
+
+(3)、自定义日志配置
+

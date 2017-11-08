@@ -20,7 +20,7 @@ public class TestRedisCacheController {
 
     @Test
     public void getUserInfo(){
-        UserInfo userinfo = redisCacheService.getUserInfo(12);
+        UserInfo userinfo = redisCacheService.getUserInfo(11);
         System.out.println(userinfo.toString());
     }
 
@@ -32,6 +32,11 @@ public class TestRedisCacheController {
         userInfo.setSex((byte) 1);
         userInfo.setAddress("wangjiazhuang");
         redisCacheService.saveUserInfo(userInfo);
+    }
+
+    @Test
+    public void updateUser(){
+        redisCacheService.updateUserInfo(11,"hahahah");
     }
 
 }

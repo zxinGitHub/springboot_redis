@@ -2,6 +2,7 @@ package com.example.springbootredis.dao;
 
 import com.example.springbootredis.domain.UserInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**

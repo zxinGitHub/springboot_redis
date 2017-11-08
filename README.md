@@ -37,3 +37,23 @@ Redis 可以在 AOF 文件体积变得过大时，自动地在后台对 AOF 进�
 
 AOF 的缺点:
 对于相同的数据集来说，AOF 文件的体积通常要大于 RDB 文件的体积。根据所使用的 fsync 策略，AOF 的速度可能会慢于 RDB 。 在一般情况下， 每秒 fsync 的性能依然非常高， 而关闭 fsync 可以让 AOF 的速度和 RDB 一样快， 即使在高负荷之下也是如此。 不过在处理巨大的写入载入时，RDB 可以提供更有保证的最大延迟时间（latency）。AOF 在过去曾经发生过这样的 bug ： 因为个别命令的原因，导致 AOF 文件在重新载入时，无法将数据集恢复成保存时的原样。 （举个例子，阻塞命令 BRPOPLPUSH 就曾经引起过这样的 bug 。） 测试套件里为这种情况添加了测试： 它们会自动生成随机的、复杂的数据集， 并通过重新载入这些数据来确保一切正常。 虽然这种 bug 在 AOF 文件中并不常见， 但是对比来说， RDB 几乎是不可能出现这种 bug 的。
+
+3、spring boot 配置logback
+spring boot在所有内部日志中使用Commons Logging，但是默认配置也提供了对常用日志的支持，如：Java Util Logging，Log4J，Log4J2 和Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。
+Logback 是log4J框架的作者开发的新一代日志框架，它效率更高、能够适应诸多的运行环境，同时天然支持SLF4J。
+默认情况下，Spring boot会用Logback来记录日志，并用INFO级别输出到控制台。在运行应用程序和其他例子是，你应该已经看到很多INFO级别的日志了。
+
+(1)、日志级别：trace < debug < info < warn < error < fatal，如果低于warn的信息都不会输出
+spring boot中默认配置 error 、 warn 和 info 级别的日志输出到控制台。
+
+(2)、基于applciation.properties的日志配置
+spring boot默认配置指挥输出到控制台，并不会记录到文件中，但是我们通常生产环境使用时都需要以文件方式记录
+若要增加文件输出，需要在application.properties中配置logging.file或logging.path属性。
+logging.file 设置文件，可以是绝对路径，也可以是相对路径。
+如：logging.file=my.log
+logging.path 设置目录，会在改目录下创建spring.log文件，并写入日志内容
+如：logging.path=/usr/local/var
+注意：二者不能同时使用，如若同时使用，则只有logging.file生效
+在spring boot 中只需要在application.properties 中进行配置完成日志记录的级别控制
+配置格式：logging.level.*=level
+logging.level: 日志级别控制前缀，*
